@@ -16,27 +16,27 @@ class Logger
         # transports.push(new (@newbornsWatcher)(options.name)) if options?.watcher
         new (winston.Logger)(transports: transports)
 
-    newbornsWatcher: (name)->
-        console.log name
-        CustomLogger = winston.transports.CustomLogger = (options) ->
-            @name = 'NewbornsWatcher'
-            @level = options.level or 'error'
+    # newbornsWatcher: (name)->
+    #     console.log name
+    #     CustomLogger = winston.transports.CustomLogger = (options) ->
+    #         @name = 'NewbornsWatcher'
+    #         @level = options.level or 'error'
 
-        util.inherits CustomLogger, winston.Transport
-        CustomLogger.prototype.log = (level, msg, meta, callback) ->
-            options =
-                url: 'https://gcm-http.googleapis.com/gcm/send'
-                headers:
-                    'Content-Type': 'application/json'
-                    'Authorization': 'key=AIzaSyCSx0lhbSz8fhVFjcaI6oFtqprfOO50eVg'
-                body:
-                    to:'/topics/global'
-                    data: 
-                        message: 
-                            origin: name
-                            message: msg
-            request.post options, (error, success) ->
-                callback error, success
-        CustomLogger
+    #     util.inherits CustomLogger, winston.Transport
+    #     CustomLogger.prototype.log = (level, msg, meta, callback) ->
+    #         options =
+    #             url: 'https://gcm-http.googleapis.com/gcm/send'
+    #             headers:
+    #                 'Content-Type': 'application/json'
+    #                 'Authorization': 'key=AIzaSyCSx0lhbSz8fhVFjcaI6oFtqprfOO50eVg'
+    #             body:
+    #                 to:'/topics/global'
+    #                 data: 
+    #                     message: 
+    #                         origin: name
+    #                         message: msg
+    #         request.post options, (error, success) ->
+    #             callback error, success
+    #     CustomLogger
 
 module.exports = Logger
