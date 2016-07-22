@@ -29,6 +29,7 @@
   "dependencies": {
     "moment": "^2.14.1",
     "request": "^2.73.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "winston-daily-rotate-file": "git://github.com/afmeirelles/winston-daily-rotate-file.git"
   }
 }
