@@ -1,7 +1,7 @@
 {
-  "name": "querybuilder",
+  "name": "logger",
   "version": "0.1.0",
-  "description": "MySQL query builder",
+  "description": "Winston logger wrapper",
   "main": "main.coffee",
   "scripts": {
     "pretest": "node_modules/.bin/coffeelint -f coffeelint.json src",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/s2way/querybuilder.git"
+    "url": "https://github.com/s2way/logger.git"
   },
   "keywords": [
     "query builder",
@@ -17,9 +17,9 @@
   ],
   "author": "Newborns/S2Way",
   "bugs": {
-    "url": "https://github.com/s2way/querybuilder/issues"
+    "url": "https://github.com/s2way/logger/issues"
   },
-  "homepage": "https://github.com/s2way/querybuilder",
+  "homepage": "https://github.com/s2way/logger",
   "devDependencies": {
     "coffee-script": "latest",
     "coffeelint": "^1.9.4",
