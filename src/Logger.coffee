@@ -1,6 +1,6 @@
 winston = require 'winston'
 util = require 'util'
-request = require 'request'
+# request = require 'request'
 moment = require 'moment'
 
 class Logger
