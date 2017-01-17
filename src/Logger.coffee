@@ -7,12 +7,15 @@ class Logger
 
     get: (options) ->
         transports = []
+
+        filepath = options.filepath ? "."
+
         if options?.console
             transports.push new (winston.transports.Console)
                 timestamp: -> moment().format()
                 formatter: (options) ->
                     "#{options.timestamp()} | #{options.level.toUpperCase()} - #{options.message or ''}"
-        transports.push new (require('winston-daily-rotate-file'))(filename: "./logs/app_log", logstash: true) if options?.file
+        transports.push new (require('winston-daily-rotate-file'))(filename: "#{filepath}/logs/app_log", logstash: true) if options?.file
         # transports.push(new (@newbornsWatcher)(options.name)) if options?.watcher
         new (winston.Logger)(transports: transports)
 
@@ -31,8 +34,8 @@ class Logger
     #                 'Authorization': 'key=AIzaSyCSx0lhbSz8fhVFjcaI6oFtqprfOO50eVg'
     #             body:
     #                 to:'/topics/global'
-    #                 data: 
-    #                     message: 
+    #                 data:
+    #                     message:
     #                         origin: name
     #                         message: msg
     #         request.post options, (error, success) ->
