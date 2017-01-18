@@ -1,23 +1,36 @@
 winston = require 'winston'
-util = require 'util'
-# request = require 'request'
+require 'winston-loggly'
 moment = require 'moment'
 
 class Logger
 
+    instance = null
+
     get: (options) ->
+        return instance if instance?
         transports = []
 
         filepath = options.filepath ? "."
 
-        if options?.console
+        if options?.console?
             transports.push new (winston.transports.Console)
                 timestamp: -> moment().format()
                 formatter: (options) ->
                     "#{options.timestamp()} | #{options.level.toUpperCase()} - #{options.message or ''}"
-        transports.push new (require('winston-daily-rotate-file'))(filename: "#{filepath}/logs/app_log", logstash: true) if options?.file
+        if options?.file?
+            transports.push new (require('winston-daily-rotate-file'))(filename: "#{filepath}/logs/app_log", logstash: true)
+        if options?.loggly?
+            options =
+                level: options.loggly.level or 'warn'
+                subdomain: options.loggly.subdomain or 's2way'
+                token: options.loggly.token
+                tags: options.loggly.tags
+                json: true
+            transports.push new winston.transports.Loggly options
+
         # transports.push(new (@newbornsWatcher)(options.name)) if options?.watcher
-        new (winston.Logger)(transports: transports)
+        instance = new (winston.Logger)(transports: transports)
+        instance
 
     # newbornsWatcher: (name)->
     #     console.log name
